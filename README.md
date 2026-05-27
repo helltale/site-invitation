@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Сайт-приглашение на свадьбу
 
-## Getting Started
+Одностраничный сайт-приглашение: обратный отсчёт, детали торжества, RSVP-форма. Ответы гостей приходят в Telegram.
 
-First, run the development server:
+Референс: [eventpoligrafia.ru/karina](https://eventpoligrafia.ru/karina)
+
+## Быстрый старт
 
 ```bash
+npm install
+cp .env.example .env.local
+# заполните TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Настройка контента
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Все тексты свадьбы — в одном файле [`lib/wedding.ts`](lib/wedding.ts):
 
-## Learn More
+- имена молодожёнов;
+- дата и время (`date.iso` — для таймера и сортировки);
+- место, ссылка на карту, дресс-код, программа;
+- контакты (телефон, Telegram, WhatsApp);
+- дедлайн RSVP (`date.rsvpDeadline`).
 
-To learn more about Next.js, take a look at the following resources:
+Визуал и URL картинок с референса — в [`lib/design.ts`](lib/design.ts) (палитра `#f4f0ed`, `#8d6645`, ассеты Tilda CDN). Для своей свадьбы замените SVG/фото на свои и обновите `lib/wedding.ts`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Telegram-бот
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Откройте [@BotFather](https://t.me/BotFather) → `/newbot` → скопируйте токен в `TELEGRAM_BOT_TOKEN`.
+2. Напишите боту любое сообщение в Telegram.
+3. Откройте в браузере:  
+   `https://api.telegram.org/bot<ВАШ_ТОКЕН>/getUpdates`  
+   Найдите `"chat":{"id":123456789}` → это `TELEGRAM_CHAT_ID`.
+4. Для локальной разработки создайте `.env.local` с обеими переменными.
 
-## Deploy on Vercel
+## Деплой на Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Загрузите репозиторий на GitHub.
+2. [vercel.com/new](https://vercel.com/new) → Import → выберите репозиторий.
+3. **Environment Variables** → добавьте `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`.
+4. Deploy.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+После деплоя проверьте форму с телефона и с компьютера.
+
+## Структура
+
+| Путь | Назначение |
+|------|------------|
+| `app/page.tsx` | Главная страница |
+| `app/api/rsvp/route.ts` | Приём формы → Telegram |
+| `components/` | Hero, PhotoSection, Invitation, Program, DressCode, Rsvp, Countdown |
+| `lib/wedding.ts` | Конфиг свадьбы |
+| `lib/design.ts` | Цвета и ссылки на ассеты |
+| `lib/rsvp-schema.ts` | Валидация полей |
+| `lib/telegram.ts` | Формат и отправка сообщения |
+
+## Скрипты
+
+- `npm run dev` — разработка
+- `npm run build` — production-сборка
+- `npm run start` — запуск собранного приложения
+- `npm run lint` — ESLint
