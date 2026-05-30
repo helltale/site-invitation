@@ -26,6 +26,7 @@ export const assets = {
       "https://static.tildacdn.com/tild3065-6133-4263-b431-353137653465/love_love_love_love_.svg",
     footerText:
       "https://static.tildacdn.com/tild6436-3163-4961-b164-383336626635/svg_1759733220529.svg",
+    loveWord: "/love-word.svg",
   },
   invitation: {
     title:
