@@ -11,7 +11,7 @@ export const colors = {
 export const assets = {
   hero: {
     ornamentTop:
-      "https://static.tildacdn.com/tild3165-6639-4634-b639-366430623364/svg_1759732535221.svg",
+      "https://static.tildacdn.com/tild3332-3862-4934-a433-643130326538/svg_1759738867383.svg",
     names:
       "https://static.tildacdn.com/tild6535-3034-4734-a466-313035313539/svg_1759732535293.svg",
     ampersand:

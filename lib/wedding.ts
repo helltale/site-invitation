@@ -1,15 +1,18 @@
 export const wedding = {
   couple: {
-    bride: "Карина",
-    groom: "Александр",
-    display: "Карина & Александр",
+    bride: "Екатерина",
+    groom: "Дмитрий",
+    display: "Дмитрий & Екатерина",
   },
   date: {
-    iso: "2026-08-20T15:00:00+04:00",
-    display: "20.08.2026",
-    displayLong: "20 августа 2026",
+    iso: "2026-08-07T15:00:00+04:00",
+    display: "07.08.2026",
+    displayLong: "7 августа 2026",
     time: "15:00",
     rsvpDeadline: "01.07.2026",
+    /** День и месяц для hero: слева / справа */
+    heroParts: ["07", "08"] as const,
+    heroYear: "2026",
   },
   venue: {
     name: "Место проведения",
