@@ -18,8 +18,7 @@ export const assets = {
       "https://static.tildacdn.com/tild3132-6166-4539-a363-643732666332/svg_1759732535347.svg",
   },
   photo: {
-    couple:
-      "https://static.tildacdn.com/tild6264-3634-4531-b032-616663663130/00cc0bc8-dc74-4536-b.png",
+    couple: "/photos/couple.jpg",
     introText:
       "https://static.tildacdn.com/tild6166-3439-4833-b466-393461373266/____________________.svg",
     marqueeAmore:
@@ -29,6 +28,8 @@ export const assets = {
     footerText:
       "https://static.tildacdn.com/tild6436-3163-4961-b164-383336626635/svg_1759733220529.svg",
     loveWord: "/love-word.svg",
+    eventCaption:
+      "https://static.tildacdn.com/tild3730-3438-4462-b061-383061353862/____________________.svg",
   },
   invitation: {
     title:

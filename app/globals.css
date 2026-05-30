@@ -189,3 +189,22 @@ body {
   letter-spacing: 0;
   transform: translateY(calc(clamp(2.75rem, 7vw, 4rem) * -0.1));
 }
+
+.photo-event-caption {
+  display: block;
+  width: min(196px, 54vw);
+  height: auto;
+  margin-top: 2rem;
+  opacity: 0.85;
+}
+
+.invitation-venue-name {
+  max-width: min(213px, 58vw);
+  font-family: var(--font-display), "Cormorant Garamond", "Didot", serif;
+  font-size: clamp(1.875rem, 5.2vw, 2.25rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  color: #111111;
+}

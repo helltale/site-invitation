@@ -48,9 +48,9 @@ export function PhotoSection() {
   const [day, month] = wedding.date.heroParts;
 
   return (
-    <section className="bg-cream pb-16 pt-4">
+    <section className="overflow-x-hidden bg-cream pb-16 pt-4">
       <div className="mx-auto flex max-w-[600px] flex-col items-center px-4">
-        <div className="relative w-full max-w-[207px] overflow-x-clip py-6">
+        <div className="relative w-full max-w-[207px] overflow-visible py-6">
           <div
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-1/2 z-0 w-screen -translate-x-1/2 -translate-y-1/2"
@@ -74,9 +74,10 @@ export function PhotoSection() {
           <Image
             src={assets.photo.couple}
             alt="Фото пары"
-            width={207}
-            height={259}
+            width={800}
+            height={1200}
             className="relative z-10 mx-auto h-auto w-full object-cover"
+            priority
           />
         </div>
 
@@ -118,6 +119,13 @@ export function PhotoSection() {
               {wedding.date.heroYear}
             </span>
           </div>
+          <Image
+            src={assets.photo.eventCaption}
+            alt=""
+            width={196}
+            height={60}
+            className="photo-event-caption"
+          />
         </div>
       </div>
     </section>

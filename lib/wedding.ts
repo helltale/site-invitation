@@ -15,7 +15,7 @@ export const wedding = {
     heroYear: "2026",
   },
   venue: {
-    name: "Место проведения",
+    name: "Sky Village",
     address: "",
     mapUrl: "https://yandex.com/maps/-/CLBtySpG",
   },
