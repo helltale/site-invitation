@@ -110,3 +110,26 @@ body {
   letter-spacing: 0.04em;
   color: var(--brown-dark);
 }
+
+.photo-love-block {
+  position: relative;
+  width: min(250px, 70vw);
+  margin-top: 0.5rem;
+}
+
+.photo-love-word {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 47%;
+  height: auto;
+  margin-left: 5%;
+  margin-bottom: -0.45rem;
+}
+
+.photo-love-footer {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.6;
+}

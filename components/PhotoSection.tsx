@@ -77,20 +77,20 @@ export function PhotoSection() {
           />
         </div>
 
-        <div className="mt-2 flex flex-col items-center">
+        <div className="photo-love-block">
           <Image
             src={assets.photo.loveWord}
             alt="Любовь"
             width={119}
             height={26}
-            className="mb-4 h-auto w-[min(119px,32vw)]"
+            className="photo-love-word"
           />
           <Image
             src={assets.photo.footerText}
-            alt="Длинною в вечность"
+            alt="Длиною в вечность"
             width={250}
             height={50}
-            className="h-auto w-[min(250px,70vw)] opacity-60"
+            className="photo-love-footer"
           />
         </div>
       </div>
