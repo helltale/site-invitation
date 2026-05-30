@@ -114,7 +114,16 @@ body {
 .photo-love-block {
   position: relative;
   width: min(250px, 70vw);
-  margin-top: 0.5rem;
+  margin-top: 0;
+}
+
+.photo-intro-text {
+  display: block;
+  width: min(214px, 58vw);
+  height: auto;
+  margin-top: 1.25rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.85;
 }
 
 .photo-love-word {
@@ -132,4 +141,25 @@ body {
   width: 100%;
   height: auto;
   opacity: 0.6;
+}
+
+.photo-invitation-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.photo-invitation-title {
+  display: block;
+  width: min(122px, 34vw);
+  height: auto;
+}
+
+.photo-event-date {
+  display: block;
+  width: min(196px, 54vw);
+  height: auto;
+  margin-top: 1.75rem;
+  opacity: 0.85;
 }

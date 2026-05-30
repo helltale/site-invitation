@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { assets } from "@/lib/design";
+import { wedding } from "@/lib/wedding";
 
 function MarqueeRow({
   src,
@@ -77,6 +78,14 @@ export function PhotoSection() {
           />
         </div>
 
+        <Image
+          src={assets.photo.introText}
+          alt=""
+          width={214}
+          height={75}
+          className="photo-intro-text"
+        />
+
         <div className="photo-love-block">
           <Image
             src={assets.photo.loveWord}
@@ -91,6 +100,23 @@ export function PhotoSection() {
             width={250}
             height={50}
             className="photo-love-footer"
+          />
+        </div>
+
+        <div className="photo-invitation-block">
+          <Image
+            src={assets.photo.invitationTitle}
+            alt="Приглашение"
+            width={122}
+            height={116}
+            className="photo-invitation-title"
+          />
+          <Image
+            src={assets.photo.eventDate}
+            alt={wedding.date.displayLong}
+            width={196}
+            height={60}
+            className="photo-event-date"
           />
         </div>
       </div>
