@@ -144,22 +144,28 @@ body {
 }
 
 .photo-invitation-block {
+  position: relative;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 2.5rem;
-}
-
-.photo-invitation-title {
-  display: block;
-  width: min(122px, 34vw);
-  height: auto;
+  margin-bottom: 1.5rem;
 }
 
 .photo-event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photo-event-date-day,
+.photo-event-date-year {
   display: block;
-  width: min(196px, 54vw);
-  height: auto;
-  margin-top: 1.75rem;
-  opacity: 0.85;
+  margin: 0;
+  line-height: 1;
+}
+
+.photo-event-date-year {
+  transform: translateY(calc(clamp(2.75rem, 7vw, 4rem) * -0.10));
 }

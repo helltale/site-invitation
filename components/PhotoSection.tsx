@@ -45,10 +45,12 @@ function MarqueeRow({
 }
 
 export function PhotoSection() {
+  const [day, month] = wedding.date.heroParts;
+
   return (
-    <section className="overflow-hidden bg-cream pb-12 pt-4">
+    <section className="bg-cream pb-16 pt-4">
       <div className="mx-auto flex max-w-[600px] flex-col items-center px-4">
-        <div className="relative w-full max-w-[207px] py-6">
+        <div className="relative w-full max-w-[207px] overflow-x-clip py-6">
           <div
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-1/2 z-0 w-screen -translate-x-1/2 -translate-y-1/2"
@@ -104,20 +106,14 @@ export function PhotoSection() {
         </div>
 
         <div className="photo-invitation-block">
-          <Image
-            src={assets.photo.invitationTitle}
-            alt="Приглашение"
-            width={122}
-            height={116}
-            className="photo-invitation-title"
-          />
-          <Image
-            src={assets.photo.eventDate}
-            alt={wedding.date.displayLong}
-            width={196}
-            height={60}
-            className="photo-event-date"
-          />
+          <div className="photo-event-date">
+            <span className="hero-date-side photo-event-date-day">
+              {day}.{month}
+            </span>
+            <span className="hero-date-year photo-event-date-year">
+              {wedding.date.heroYear}
+            </span>
+          </div>
         </div>
       </div>
     </section>
