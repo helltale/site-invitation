@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { InvitationPage } from "@/components/InvitationPage";
 import { getGuestByCode } from "@/lib/guests";
 
+export const dynamic = "force-dynamic";
+
 type InvitePageProps = {
   params: Promise<{ code: string }>;
 };

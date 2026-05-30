@@ -1,10 +1,18 @@
 import Image from "next/image";
 import { assets } from "@/lib/design";
+import type { Guest } from "@/lib/guests";
+import { getHeroNameLines } from "@/lib/guests";
 import { wedding } from "@/lib/wedding";
 
-export function Hero() {
-  const { groom, bride } = wedding.couple;
+type HeroProps = {
+  guest?: Guest;
+};
+
+export function Hero({ guest }: HeroProps) {
   const [day, month] = wedding.date.heroParts;
+  const nameLines = guest
+    ? getHeroNameLines(guest)
+    : [wedding.couple.groom.toUpperCase(), wedding.couple.bride.toUpperCase()];
 
   return (
     <section className="relative overflow-hidden bg-cream px-4 pb-16 pt-10 sm:pt-14">
@@ -24,8 +32,14 @@ export function Hero() {
           <span className="hero-date-side justify-self-start">{day}</span>
 
           <div className="text-center">
-            <p className="hero-names">{groom.toUpperCase()}</p>
-            <p className="hero-names mt-1 sm:mt-2">{bride.toUpperCase()}</p>
+            {nameLines.map((line, index) => (
+              <p
+                key={line}
+                className={`hero-names${index > 0 ? " mt-1 sm:mt-2" : ""}`}
+              >
+                {line}
+              </p>
+            ))}
           </div>
 
           <span className="hero-date-side justify-self-end">{month}</span>
