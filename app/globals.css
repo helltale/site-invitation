@@ -159,13 +159,33 @@ body {
   align-items: center;
 }
 
-.photo-event-date-day,
-.photo-event-date-year {
-  display: block;
+.photo-event-date-day {
+  display: inline-grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
   margin: 0;
   line-height: 1;
 }
 
+.photo-event-date-part:first-child {
+  text-align: right;
+}
+
+.photo-event-date-part:last-child {
+  text-align: left;
+}
+
+.photo-event-date-dot {
+  padding: 0 0.1em;
+  line-height: 1;
+  text-align: center;
+  transform: translateY(0.06em);
+}
+
 .photo-event-date-year {
-  transform: translateY(calc(clamp(2.75rem, 7vw, 4rem) * -0.10));
+  display: block;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: 0;
+  transform: translateY(calc(clamp(2.75rem, 7vw, 4rem) * -0.1));
 }

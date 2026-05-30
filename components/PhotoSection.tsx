@@ -108,7 +108,11 @@ export function PhotoSection() {
         <div className="photo-invitation-block">
           <div className="photo-event-date">
             <span className="hero-date-side photo-event-date-day">
-              {day}.{month}
+              <span className="photo-event-date-part">{day}</span>
+              <span className="photo-event-date-dot" aria-hidden="true">
+                .
+              </span>
+              <span className="photo-event-date-part">{month}</span>
             </span>
             <span className="hero-date-year photo-event-date-year">
               {wedding.date.heroYear}
