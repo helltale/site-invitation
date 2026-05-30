@@ -23,8 +23,10 @@ const yesNo = z.enum(["yes", "no"]);
 
 export const rsvpSchema = z
   .object({
-    familyName: z.string().trim().min(1, "Укажите фамилию"),
-    guestNames: z.string().trim().min(1, "Укажите имя"),
+    familyName: z.string().trim().optional(),
+    guestNames: z.string().trim().optional(),
+    inviteCode: z.string().trim().optional(),
+    attendingCount: z.coerce.number().int().min(1).optional(),
     phone: z
       .string()
       .trim()
@@ -40,7 +42,31 @@ export const rsvpSchema = z
     music: z.string().trim().optional(),
     dietary: z.string().trim().optional(),
     website: z.string().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (!data.inviteCode) {
+      if (!data.familyName?.length) {
+        ctx.addIssue({
+          code: "custom",
+          message: "Укажите фамилию",
+          path: ["familyName"],
+        });
+      }
+      if (!data.guestNames?.length) {
+        ctx.addIssue({
+          code: "custom",
+          message: "Укажите имя",
+          path: ["guestNames"],
+        });
+      }
+    }
   });
 
 export type RsvpInput = z.input<typeof rsvpSchema>;
 export type RsvpData = z.output<typeof rsvpSchema>;
+
+export type RsvpPayload = RsvpData & {
+  familyName: string;
+  guestNames: string;
+  invitedCount?: number;
+};

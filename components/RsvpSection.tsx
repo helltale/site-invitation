@@ -1,9 +1,14 @@
 import Image from "next/image";
 import { assets } from "@/lib/design";
+import type { Guest } from "@/lib/guests";
 import { wedding } from "@/lib/wedding";
 import { RsvpForm } from "./RsvpForm";
 
-export function RsvpSection() {
+type RsvpSectionProps = {
+  guest?: Guest;
+};
+
+export function RsvpSection({ guest }: RsvpSectionProps) {
   return (
     <section id="rsvp" className="relative bg-cream px-4 pb-20 pt-8">
       <div className="mx-auto max-w-[600px]">
@@ -35,7 +40,7 @@ export function RsvpSection() {
             </p>
           </div>
         </div>
-        <RsvpForm />
+        <RsvpForm guest={guest} />
       </div>
     </section>
   );

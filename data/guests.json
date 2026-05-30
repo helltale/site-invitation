@@ -1,0 +1,20 @@
+{
+  "ivanovy": {
+    "familyName": "Ивановы",
+    "guestNames": "Елена и Александр",
+    "guestCount": 2,
+    "salutation": "plural"
+  },
+  "petrova": {
+    "familyName": "Петрова",
+    "guestNames": "Мария",
+    "guestCount": 1,
+    "salutation": "female"
+  },
+  "sidorov": {
+    "familyName": "Сидоров",
+    "guestNames": "Дмитрий",
+    "guestCount": 1,
+    "salutation": "male"
+  }
+}

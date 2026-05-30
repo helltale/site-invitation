@@ -6,19 +6,24 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { formOptions, wedding } from "@/lib/wedding";
 import { assets } from "@/lib/design";
+import type { Guest } from "@/lib/guests";
 import { rsvpSchema, type RsvpInput } from "@/lib/rsvp-schema";
 
 const inputClass =
   "w-full h-[50px] rounded-full border border-brown-dark bg-transparent px-5 text-xs text-brown-dark outline-none placeholder:text-brown-dark/50 focus:ring-1 focus:ring-brown-dark/30";
 
-const defaultValues: Partial<RsvpInput> = {
-  familyName: "",
-  guestNames: "",
-  phone: "",
-  alcohol: [],
-  hotFood: [],
-  website: "",
-};
+function buildDefaultValues(guest?: Guest): Partial<RsvpInput> {
+  return {
+    familyName: guest?.familyName ?? "",
+    guestNames: guest?.guestNames ?? "",
+    inviteCode: guest?.code ?? "",
+    attendingCount: guest?.guestCount ?? undefined,
+    phone: "",
+    alcohol: [],
+    hotFood: [],
+    website: "",
+  };
+}
 
 function FieldLabel({
   children,
@@ -40,9 +45,14 @@ function FieldError({ message }: { message?: string }) {
   return <p className="mt-1 text-xs text-red-700">{message}</p>;
 }
 
-export function RsvpForm() {
+type RsvpFormProps = {
+  guest?: Guest;
+};
+
+export function RsvpForm({ guest }: RsvpFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const hasInvite = Boolean(guest);
 
   const {
     register,
@@ -51,7 +61,7 @@ export function RsvpForm() {
     formState: { errors, isSubmitting },
   } = useForm<RsvpInput>({
     resolver: zodResolver(rsvpSchema),
-    defaultValues,
+    defaultValues: buildDefaultValues(guest),
   });
 
   const attendance = useWatch({ control, name: "attendance" });
@@ -108,30 +118,49 @@ export function RsvpForm() {
         {...register("website")}
       />
 
-      <div>
-        <FieldLabel required>Ваша фамилия:</FieldLabel>
-        <input
-          id="familyName"
-          placeholder="Ивановы"
-          className={inputClass}
-          {...register("familyName")}
-        />
-        <FieldError message={errors.familyName?.message} />
-      </div>
+      {hasInvite && guest ? (
+        <>
+          <input type="hidden" {...register("inviteCode")} />
+          <input type="hidden" {...register("familyName")} />
+          <input type="hidden" {...register("guestNames")} />
+          <div className="rounded-2xl border border-brown-dark/15 bg-cream-dark/40 px-5 py-4 text-center">
+            <p className="text-xs uppercase tracking-wide text-brown-dark/60">
+              Вы
+            </p>
+            <p className="mt-1 greeting-line text-xl">{guest.guestNames}</p>
+            <p className="mt-0.5 text-sm text-brown-dark/70">
+              ({guest.familyName})
+            </p>
+          </div>
+        </>
+      ) : (
+        <>
+          <div>
+            <FieldLabel required>Ваша фамилия:</FieldLabel>
+            <input
+              id="familyName"
+              placeholder="Ивановы"
+              className={inputClass}
+              {...register("familyName")}
+            />
+            <FieldError message={errors.familyName?.message} />
+          </div>
 
-      <div>
-        <FieldLabel required>Ваше имя:</FieldLabel>
-        <p className="mb-2 text-xs text-brown-dark/60">
-          Если вы придёте со своей парой, напишите пожалуйста ваши имена
-        </p>
-        <input
-          id="guestNames"
-          placeholder="Владимир и Наталья"
-          className={inputClass}
-          {...register("guestNames")}
-        />
-        <FieldError message={errors.guestNames?.message} />
-      </div>
+          <div>
+            <FieldLabel required>Ваше имя:</FieldLabel>
+            <p className="mb-2 text-xs text-brown-dark/60">
+              Если вы придёте со своей парой, напишите пожалуйста ваши имена
+            </p>
+            <input
+              id="guestNames"
+              placeholder="Владимир и Наталья"
+              className={inputClass}
+              {...register("guestNames")}
+            />
+            <FieldError message={errors.guestNames?.message} />
+          </div>
+        </>
+      )}
 
       <div>
         <FieldLabel required>Номер вашего телефона</FieldLabel>
@@ -171,6 +200,27 @@ export function RsvpForm() {
         </div>
         <FieldError message={errors.attendance?.message} />
       </fieldset>
+
+      {hasInvite && guest && guest.guestCount > 1 && attending && (
+        <div>
+          <FieldLabel>Сколько человек придёт?</FieldLabel>
+          <select
+            id="attendingCount"
+            className={inputClass}
+            {...register("attendingCount")}
+          >
+            {Array.from({ length: guest.guestCount }, (_, index) => {
+              const count = index + 1;
+              return (
+                <option key={count} value={count}>
+                  {count}
+                </option>
+              );
+            })}
+          </select>
+          <FieldError message={errors.attendingCount?.message} />
+        </div>
+      )}
 
       {attending && (
         <div className="space-y-5 border-t border-brown-dark/10 pt-5">

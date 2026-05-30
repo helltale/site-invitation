@@ -1,6 +1,46 @@
 import { NextResponse } from "next/server";
-import { rsvpSchema } from "@/lib/rsvp-schema";
+import { getGuestByCode } from "@/lib/guests";
+import { rsvpSchema, type RsvpPayload } from "@/lib/rsvp-schema";
 import { formatRsvpMessage, sendTelegramMessage } from "@/lib/telegram";
+
+function resolveRsvpPayload(
+  data: ReturnType<typeof rsvpSchema.parse>,
+): RsvpPayload | { error: string; status: number } {
+  if (data.inviteCode) {
+    const guest = getGuestByCode(data.inviteCode);
+    if (!guest) {
+      return { error: "Приглашение не найдено", status: 400 };
+    }
+
+    if (
+      data.attendingCount !== undefined &&
+      data.attendingCount > guest.guestCount
+    ) {
+      return {
+        error: `Количество гостей не может превышать ${guest.guestCount}`,
+        status: 422,
+      };
+    }
+
+    return {
+      ...data,
+      familyName: guest.familyName,
+      guestNames: guest.guestNames,
+      inviteCode: guest.code,
+      invitedCount: guest.guestCount,
+    };
+  }
+
+  if (!data.familyName || !data.guestNames) {
+    return { error: "Проверьте заполнение формы", status: 422 };
+  }
+
+  return {
+    ...data,
+    familyName: data.familyName,
+    guestNames: data.guestNames,
+  };
+}
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -33,8 +73,16 @@ export async function POST(request: Request) {
     );
   }
 
+  const payload = resolveRsvpPayload(parsed.data);
+  if ("error" in payload) {
+    return NextResponse.json(
+      { error: payload.error },
+      { status: payload.status },
+    );
+  }
+
   try {
-    const message = formatRsvpMessage(parsed.data);
+    const message = formatRsvpMessage(payload);
     await sendTelegramMessage(message);
   } catch (error) {
     console.error("RSVP submit failed:", error);

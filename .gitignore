@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+invites.csv
 
 # debug
 npm-debug.log*

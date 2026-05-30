@@ -1,4 +1,4 @@
-import { formatPhoneDisplay, type RsvpData } from "./rsvp-schema";
+import { formatPhoneDisplay, type RsvpPayload } from "./rsvp-schema";
 
 function yesNoLabel(value: "yes" | "no" | undefined): string {
   if (value === "yes") return "Да";
@@ -11,22 +11,39 @@ function listOrDash(items: string[] | undefined): string {
   return items.join(", ");
 }
 
-export function formatRsvpMessage(data: RsvpData): string {
+export function formatRsvpMessage(data: RsvpPayload): string {
   const lines: string[] = [
     "🎉 <b>Новый ответ RSVP</b>",
     "",
+  ];
+
+  if (data.inviteCode) {
+    lines.push(`<b>Код приглашения:</b> ${escapeHtml(data.inviteCode)}`, "");
+  }
+
+  lines.push(
     `<b>${escapeHtml(data.familyName)}</b>`,
     escapeHtml(data.guestNames),
     formatPhoneDisplay(data.phone),
     "",
-  ];
+  );
 
   if (data.attendance === "no") {
     lines.push("<b>Присутствие:</b> не смогут");
     return lines.join("\n");
   }
 
-  lines.push("<b>Присутствие:</b> придут", "");
+  lines.push("<b>Присутствие:</b> придут");
+
+  if (data.attendingCount !== undefined && data.invitedCount !== undefined) {
+    lines.push(
+      `<b>Количество:</b> ${data.attendingCount} из ${data.invitedCount}`,
+    );
+  } else if (data.attendingCount !== undefined) {
+    lines.push(`<b>Количество:</b> ${data.attendingCount}`);
+  }
+
+  lines.push("");
   lines.push(`<b>Алкоголь:</b> ${escapeHtml(listOrDash(data.alcohol))}`);
   lines.push(`<b>Горячее:</b> ${escapeHtml(listOrDash(data.hotFood))}`);
   lines.push(
