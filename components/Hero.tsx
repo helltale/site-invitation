@@ -33,9 +33,9 @@ export function Hero({ ready }: HeroProps) {
           wedding day
         </p>
 
-        <div className="mt-8 grid w-full max-w-[820px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-2 sm:mt-10 sm:gap-x-4">
+        <div className="hero-names-grid grid w-full max-w-[820px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-2 sm:gap-x-4">
           <span
-            className={`hero-date-side ${animateClass} justify-self-start`}
+            className={`hero-date-side hero-date-side--hero ${animateClass} justify-self-start`}
             style={{ animationDelay: "0.55s" }}
           >
             {day}
@@ -47,7 +47,7 @@ export function Hero({ ready }: HeroProps) {
           </div>
 
           <span
-            className={`hero-date-side ${animateClass} justify-self-end`}
+            className={`hero-date-side hero-date-side--hero ${animateClass} justify-self-end`}
             style={{ animationDelay: "0.55s" }}
           >
             {month}
@@ -55,7 +55,7 @@ export function Hero({ ready }: HeroProps) {
         </div>
 
         <p
-          className={`hero-date-year ${animateClass} mt-10 sm:mt-12`}
+          className={`hero-date-year hero-date-year--hero ${animateClass}`}
           style={{ animationDelay: "0.75s" }}
         >
           {wedding.date.heroYear}
