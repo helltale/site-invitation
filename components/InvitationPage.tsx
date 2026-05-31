@@ -15,7 +15,7 @@ type InvitationPageProps = {
 export function InvitationPage({ guest }: InvitationPageProps) {
   return (
     <main className="min-h-screen bg-cream">
-      <Hero guest={guest} />
+      <Hero />
       {guest ? <PersonalizedGreeting guest={guest} /> : null}
       <PhotoSection />
       <InvitationSection />

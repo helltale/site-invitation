@@ -39,15 +39,6 @@ export function formatGreeting(guest: Guest): string {
   return `${salutationPrefix[guest.salutation]} ${guest.guestNames}`;
 }
 
-export function getHeroNameLines(guest: Guest): string[] {
-  if (guest.guestNames.includes(" и ")) {
-    return guest.guestNames
-      .split(" и ")
-      .map((name) => name.trim().toUpperCase());
-  }
-  return [guest.guestNames.toUpperCase()];
-}
-
 export function buildInviteUrl(baseUrl: string, code: string): string {
   const base = baseUrl.replace(/\/$/, "");
   return `${base}/i/${code}`;

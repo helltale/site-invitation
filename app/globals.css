@@ -82,12 +82,37 @@ body {
   }
 }
 
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 .animate-marquee {
   animation: marquee 25s linear infinite;
 }
 
 .animate-fade-in {
   animation: fadeIn 3s ease forwards;
+}
+
+.hero-animate-in {
+  opacity: 0;
+  will-change: opacity, transform;
+  animation: heroFadeUp 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate-in {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
 }
 
 .greeting-line {
