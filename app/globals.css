@@ -101,16 +101,22 @@ body {
   animation: fadeIn 3s ease forwards;
 }
 
-.hero-animate-in {
+.hero-animate-pending {
   opacity: 0;
-  will-change: opacity, transform;
+}
+
+.hero-animate-in {
   animation: heroFadeUp 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-animate-in {
+  .hero-animate-pending {
     opacity: 1;
+  }
+
+  .hero-animate-in {
     animation: none;
+    opacity: 1;
     transform: none;
   }
 }
